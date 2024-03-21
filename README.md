@@ -1,11 +1,11 @@
 ### Lettura dei dati
-- Ho usato la libreria Geopandas per leggere il dataset in input (resa_girasole_2022.gpkg)
+- Ho usato la libreria Geopandas per leggere il dataset di input (resa_girasole_2022.gpkg)
 
 ### EDA
 - Ho cambiato il tipo di alcune colonne in modo consono a ciò che rappresentano
 - Ho riordinato il dataset dalla data più vecchia a quella più recente
 - Ho analizzato alcune statistiche del dataset
-- Ho riempito i dati mancanti usando la mediana dei valori della colonna in questione
+- Ho riempito i dati mancanti usando la mediana dei valori della colonna a cui appartenevano
 - Ho notato che nel dataset comparivano 3 giorni di raccolta (31/08/2022, 03/09/2022, 05/09/2022), così ho deciso di mostrare alcuni grafici separatamente per ciascun gruppo
 - Ho mostrato in particolare il grafico in funzione del tempo delle features che comparivano nel dataset (longitudine, latitudine, resa, velocità, area, umidità)
 - Ho deciso poi di mostrare anche il percorso della macchina agricola (latitudine in funzione della longitudine) con la corrispondente resa per ciasun punto (usando una color map)
@@ -18,16 +18,16 @@
 
 ### Download dei valori dell'indice vegetativo NDVI (Normalized Difference Vegetation Index)
 - Dopo alcune ricerche online, ho trovato un sito delle NASA da cui scaricare i dati che mi interessavano: https://appeears.earthdatacloud.nasa.gov/task/point
-- Tramite Python, ho esportato il dataset originale in un file .csv usando solo le colonne richieste dal sito (ID, Category, Latitude, Longitude)
-- Ho caricato il file .csv sul sito, nell'apposita sezione
-- Sempre sul sito, ho inserito il periodo per cui mi serviva sapere l'indice vegetativo: dato che serviva l'anno precedente al periodo di raccolta, ho scelto come periodo quello dal 31/08/2021 al 30/08/2022
+- Tramite Python, ho esportato il dataset originale in un file csv usando solo le colonne richieste dal sito (ID, Category, Latitude, Longitude)
+- Ho caricato il file csv sul sito, nell'apposita sezione
+- Sempre sul sito, ho inserito il periodo per cui volevo sapere l'indice vegetativo: dato che serviva l'anno precedente al periodo di raccolta, ho scelto come periodo quello dal 31/08/2021 al 30/08/2022
 - Sotto la dicitura "Select the layers to include in the sample" ho cercato "NDVI"
-- Ho scelto la voce "Terra MODIS Vegetation Indices (NDVI & EVI)" perchè era quello con risoluzione migliore (250 metri anzichè 500 o 1000) e timeframe minore (16 giorni anzichè 30)
+- Ho scelto la voce "Terra MODIS Vegetation Indices (NDVI & EVI)" (Terra MODIS è un satellite) perchè era quello con risoluzione migliore (250 metri anzichè 500 o 1000) e timeframe minore (16 giorni anzichè 30)
 - Ho cliccato su "Submit" e atteso la mail per il download dei dati richiesti
 
 ### Correlazione tra i dati iniziali e l'indice vegetativo NDVI
-- Ho letto con Pandas i risultati scaricati: usando un timeframe di 16 giorni per il periodo richiesto, ho ottenuto 24 date diverse per ogni coppia di longitudine e latitudine che avevo nel dataset di partenza (1962 punti), per un totale di 24 x 1962 = 47088 righe
-- Ho notato che in realtà le date partivano dal 29/08/2021 e non dal 31/08/2021, probabilmente perchè è la data più vicina a quella richiesta tra tutte quelle in cui il satellite in questione ha acquisito i dati, ma non è rilevante ai fini del compito
+- Ho letto con Pandas i risultati scaricati: usando un timeframe di 16 giorni per un periodo lungo 1 anno, ho ottenuto 24 date diverse per ogni coppia di longitudine e latitudine che avevo nel dataset di partenza (1962 punti), per un totale di 24 x 1962 = 47088 righe
+- Ho notato che in realtà le date partivano dal 29/08/2021 e non dal 31/08/2021, probabilmente perchè 29/08/2021 è la data più vicina a quella richiesta tra tutte quelle in cui il satellite in questione ha acquisito i dati, ma non è rilevante ai fini del compito
 - Ho filtrato i risultati in modo da tenere solo le colonne che mi interessavano (ID, Latitude, Longitude, Date e MOD13Q1_061__250m_16_days_NDVI)
 - Ho raggruppato i dati usando la funzione groupby, in modo da ottenere un NDVI medio per ogni coppia di longitudine e latitudine, e rinominato alcune colonne
 - Usando la funzione merge di Pandas, ho fatto una left join tra i dati originali e la nuova colonna ottenuta "NDVI medio", usando come chiave la coppia longitudine-latitudine
@@ -35,8 +35,8 @@
 - Ho cercato un'eventuale correlazione non lineare tra la variabile resa e le features NDVI medio, longitudine e latitudine: per farlo, ho cercato una relazione tra quelle variabili usando una random forest, ottenendo un MAPE (Mean Absolute Percentage Error) del 21.7% sul set di validazione e del 24.1% sul set di test
 - Ho stampato un grafico che rappresenta la resa predetta dal modello in funzione della resa reale: sembra disporsi in modo simile a una retta inclinata a 45°, suggerendo che il modello prevede le varie rese correttamente (anche se con un errore percentuale medio intorno al 12% per il dataset totale)
 - Avendo trovato una relazione, ciò potrebbe suggerire una correlazione (in questo caso non lineare) tra resa e NDVI (anche se con l'aggiunta delle features longitudine e latitudine)
-- Guardando l'importanza delle caratteristiche della random forest, ho scoperto però che l'indice NDVI ha contribuito solo per un 2% a prevedere il valore di resa (contro un 71% della longitudine e un 27% della latitudine), confermando quindi che i dati del NDVI scaricati non sembrano essere correlati alla resa
-- Il motivo potrebbe essere che una risoluzione spaziale di 250 metri non è sufficientemente precisa per quel terreno (dai dati raggruppati si nota infatti che tendono a ripetersi più volte gli stessi identici valori di NDVI al variare della coppia longitudine-latitudine, suggerendo che è necessaria una risoluzione spaziale migliore, ad esempio di 50 metri o 10 metri)
+- Tuttavia, guardando l'importanza delle caratteristiche della random forest, ho scoperto che l'indice NDVI ha contribuito solo per un 2% a prevedere il valore di resa (contro un 71% della longitudine e un 27% della latitudine), confermando quindi che i dati del NDVI scaricati non sembrano essere correlati alla resa
+- Il motivo potrebbe essere che una risoluzione spaziale di 250 metri non è sufficientemente precisa per quel terreno (dai dati raggruppati si nota infatti che tendono a ripetersi più volte gli stessi identici valori di NDVI al variare della coppia longitudine-latitudine, suggerendo che è necessaria una risoluzione spaziale migliore, ad esempio di 50 metri o 10 metri, magari tramite l'uso di droni)
 
 ### Random forest
 - Ho filtrato i dati in modo da tenere solo le colonne che mi interessavano (NDVI medio, longitudine, latitudine e resa)
