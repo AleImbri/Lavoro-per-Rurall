@@ -1,1 +1,1 @@
-# Lavoro-per-Rurall
+Spiegazione di quello che ho fatto:
