@@ -59,5 +59,5 @@
 
 ### Possibili miglioramenti
 - Si potrebbe utilizzare una rete neurale anzichè una random forest per vedere se le performance migliorano
-- Si dovrebbe usare un satellite, o magari un drone, con una risoluzione spaziale migliore (meno di 250 metri) e magari anche un timeframe migliore (meno di 16 giorni)
+- Si dovrebbe usare un satellite, o magari un drone, con una risoluzione spaziale migliore (meno di 250 metri) e magari anche una frequenza di campionamento migliore (meno di 16 giorni)
 - In realtà non c'è un motivo preciso per cui la resa dovrebbe dipendere dai particolari valori di longitudine e latitudine in cui si effettua la raccolta; eventualmente dipende solo dall'indice vegetativo medio dell'anno precedente. Tuttavia ho aggiunto comunque quelle features a scopo illustrativo
