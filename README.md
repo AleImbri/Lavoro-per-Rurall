@@ -36,8 +36,7 @@
 - Ho stampato un grafico che rappresenta la resa predetta dal modello in funzione della resa reale: sembra disporsi in modo simile a una retta inclinata a 45°, suggerendo che il modello prevede le varie rese correttamente (anche se con un errore percentuale medio intorno al 12% per il dataset totale)
 - Avendo trovato una relazione, ciò potrebbe suggerire una correlazione (in questo caso non lineare) tra resa e NDVI (anche se con l'aggiunta delle features longitudine e latitudine)
 - Guardando l'importanza delle caratteristiche della random forest, ho scoperto però che l'indice NDVI ha contribuito solo per un 2% a prevedere il valore di resa (contro un 71% della longitudine e un 27% della latitudine), confermando quindi che i dati del NDVI scaricati non sembrano essere correlati alla resa
-- Il motivo potrebbe essere che una risoluzione spaziale di 250 metri non è sufficientemente precisa per quel terreno (dai dati raggruppati si nota infatti che tendono a ripetersi più volte gli stessi identici valori di NDVI al variare della coppia longitudine-latitudine, suggerendo che è necessaria una risoluzione spaziale più alta, ad esempio di 50 metri o 10 metri)
-
+- Il motivo potrebbe essere che una risoluzione spaziale di 250 metri non è sufficientemente precisa per quel terreno (dai dati raggruppati si nota infatti che tendono a ripetersi più volte gli stessi identici valori di NDVI al variare della coppia longitudine-latitudine, suggerendo che è necessaria una risoluzione spaziale migliore, ad esempio di 50 metri o 10 metri)
 
 ### Random forest
 - Ho filtrato i dati in modo da tenere solo le colonne che mi interessavano (NDVI medio, longitudine, latitudine e resa)
@@ -61,3 +60,4 @@
 - Si potrebbe utilizzare una rete neurale anzichè una random forest per vedere se le performance migliorano
 - Si dovrebbe usare un satellite, o magari un drone, con una risoluzione spaziale migliore (meno di 250 metri) e magari anche una frequenza di campionamento migliore (meno di 16 giorni)
 - In realtà non c'è un motivo preciso per cui la resa dovrebbe dipendere dai particolari valori di longitudine e latitudine in cui si effettua la raccolta; eventualmente dipende solo dall'indice vegetativo medio dell'anno precedente. Tuttavia ho aggiunto comunque quelle features a scopo illustrativo
+- Nell'interpolazione spaziale, si possono testare altri metodi di interpolazione; inoltre, anzichè creare una griglia in un rettangolo, si può creare una griglia che stia tutta all'interno del dominio di longitudine e latitudine originale (che nel nostro caso è più simile a un triangolo rettangolo)
