@@ -18,8 +18,7 @@
 
 ### Download dei valori dell'indice vegetativo NDVI (Normalized Difference Vegetation Index)
 - Dopo alcune ricerche online, ho trovato un sito della NASA da cui scaricare i dati che mi interessavano: https://appeears.earthdatacloud.nasa.gov/task/point
-- Tramite Python, ho esportato il dataset originale in un file csv usando solo le colonne richieste dal sito (ID, Category, Latitude, Longitude; ID e Category in realtà sono opzionali)
-- In realtà ho dovuto esportare 2 file csv separati perchè il sito accetta massimo 1000 righe per volta
+- Tramite Python, ho esportato il dataset originale in 2 file csv (ho dovuto esportarne 2 separati perchè il sito accetta massimo 1000 righe per volta) usando solo le colonne richieste dal sito (ID, Category, Latitude, Longitude; ID e Category in realtà sono opzionali)
 - Ho caricato i file csv sul sito, nell'apposita sezione
 - Sempre sul sito, ho inserito il periodo per cui volevo sapere l'indice vegetativo: dato che serviva l'anno precedente al periodo di raccolta, ho scelto come periodo quello dal 31/08/2021 al 30/08/2022
 - Sotto la dicitura "Select the layers to include in the sample" ho cercato "NDVI"
