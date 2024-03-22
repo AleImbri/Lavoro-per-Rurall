@@ -58,6 +58,8 @@
 
 ### Possibili miglioramenti
 - Si potrebbe utilizzare una rete neurale anzichè una random forest per vedere se le performance migliorano
-- Si dovrebbe usare un satellite, o magari un drone, con una risoluzione spaziale migliore (meno di 250 metri) e magari anche una frequenza di campionamento migliore (meno di 16 giorni)
+- Si dovrebbero raccogliere più dati per ottenere buoni risultati nel machine learning (nel nostro caso sono meno di 2000)
+- In realtà era stato chiesto di correlare i dati ottenuti tramite l'interpolazione spaziale con l'indice vegetativo, mentre io ho usato i dati originali. Tuttavia, ciò avrebbe richiesto più tempo per il machine learning e anche una risoluzione spaziale ancora più dettagliata, ed essendo questa già insufficiente per i dati originali, non mi aspetto che avrei ottenuto risultati migliori usando una griglia di dati ancora più fitta
+- Si dovrebbe usare un satellite, o magari un drone, con una risoluzione spaziale migliore (meno di 250 metri) ed eventualmente anche una frequenza di campionamento migliore (meno di 16 giorni)
 - In realtà non c'è un motivo preciso per cui la resa dovrebbe dipendere dai particolari valori di longitudine e latitudine in cui si effettua la raccolta; eventualmente dipende solo dall'indice vegetativo medio dell'anno precedente. Tuttavia ho aggiunto comunque quelle features a scopo illustrativo
 - Nell'interpolazione spaziale, si possono testare altri metodi di interpolazione; inoltre, anzichè creare una griglia in un rettangolo, si può creare una griglia che stia tutta all'interno del dominio di longitudine e latitudine originale (che nel nostro caso è più simile a un triangolo rettangolo che a un rettangolo)
