@@ -59,7 +59,7 @@
 - Ho mostrato l'importanza delle features del modello scelto
 - Ho mostrato il grafico della resa predetta in funzione di quella reale, che idealmente sarebbe quindi una retta inclinata a 45°
 
-### Possibili miglioramenti
+### Possibili miglioramenti e considerazioni finali
 - Si potrebbe utilizzare una rete neurale anzichè una random forest per vedere se le performance migliorano
 - Si dovrebbero raccogliere molti più dati per ottenere buoni risultati nel machine learning (nel nostro caso sono meno di 2000)
 - In realtà era stato chiesto di correlare i dati ottenuti tramite l'interpolazione spaziale con l'indice vegetativo, mentre io ho usato i dati originali. Tuttavia, ciò avrebbe richiesto più tempo per il machine learning e anche una risoluzione spaziale ancora più dettagliata, ed essendo questa già insufficiente per i dati originali, non mi aspetto che avrei ottenuto risultati migliori usando una griglia di dati ancora più fitta
