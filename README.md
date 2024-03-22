@@ -44,7 +44,7 @@
 - Ho suddiviso in X e y rispettivamente le colonne delle features (NDVI medio, longitudine e latitudine) e la colonna del target (resa)
 - Usando la funzione train_test_split di Scikit-learn, ho suddiviso il dataset in train (81%), validation (9%) e test (10%)
 - Ho lanciato una prima random forest con iperparametri arbitrari solo per farmi una prima idea delle performance
-- Ho lanciato una grid search per provare tante combinazioni di iperparametri a mia scelta
+- Ho lanciato una grid search per provare tante combinazioni di iperparametri a mia scelta (prima di fare ciò, assicurarsi che il percorso in cui si vogliono salvare i modelli esista)
 - Ho usato 3 metriche di performance: MSE (Mean Squared Error), MAPE (Mean Absolute Percentage Error) e MAE (Mean Absolute Error)
 - Ho utilizzato anche dei pesi per calcolare una media pesata di queste 3 metriche, scegliendo di dare più priorità al MAPE (con un peso di 5, contro un peso di 1 per le altre due metriche)
 - Mi sono inventato un sistema automatizzato per creare una cartella per ogni grid search lanciata, salvando al suo interno i modelli migliori per ogni metrica (in un file pickle) e le varie stampe a video che si vedevano per quella particolare grid search (in un file .txt chiamato "prints")
