@@ -19,7 +19,8 @@
 ### Download dei valori dell'indice vegetativo NDVI (Normalized Difference Vegetation Index)
 - Dopo alcune ricerche online, ho trovato un sito della NASA da cui scaricare i dati che mi interessavano: https://appeears.earthdatacloud.nasa.gov/task/point
 - Tramite Python, ho esportato il dataset originale in un file csv usando solo le colonne richieste dal sito (ID, Category, Latitude, Longitude; ID e Category in realtà sono opzionali)
-- Ho caricato il file csv sul sito, nell'apposita sezione
+- In realtà ho dovuto esportare 2 file csv separati perchè il sito accetta massimo 1000 righe per volta
+- Ho caricato i file csv sul sito, nell'apposita sezione
 - Sempre sul sito, ho inserito il periodo per cui volevo sapere l'indice vegetativo: dato che serviva l'anno precedente al periodo di raccolta, ho scelto come periodo quello dal 31/08/2021 al 30/08/2022
 - Sotto la dicitura "Select the layers to include in the sample" ho cercato "NDVI"
 - Ho scelto la voce "Terra MODIS Vegetation Indices (NDVI & EVI)" (Terra MODIS è un satellite) perchè era quello con risoluzione migliore (250 metri anzichè 500 o 1000) e timeframe minore (16 giorni anzichè 30)
@@ -36,11 +37,12 @@
 - Ho stampato un grafico che rappresenta la resa predetta dal modello in funzione della resa reale: sembra disporsi in modo simile a una retta inclinata a 45°, suggerendo che il modello prevede le varie rese correttamente (anche se con un errore percentuale medio intorno al 12.3% per il dataset totale)
 - Avendo trovato una relazione, ciò potrebbe suggerire una correlazione (in questo caso non lineare) tra resa e NDVI (anche se con l'aggiunta delle features longitudine e latitudine)
 - Tuttavia, guardando l'importanza delle caratteristiche della random forest, ho scoperto che l'indice NDVI ha contribuito solo per un 2% a prevedere il valore di resa (contro un 71% della longitudine e un 27% della latitudine), confermando quindi che i dati del NDVI scaricati non sembrano essere correlati alla resa
-- Il motivo potrebbe essere che una risoluzione spaziale di 250 metri non è sufficientemente precisa per quel terreno (dai dati raggruppati si nota infatti che tendono a ripetersi più volte gli stessi identici valori di NDVI al variare della coppia longitudine-latitudine, suggerendo che è necessaria una risoluzione spaziale migliore, ad esempio di 50 metri o 10 metri, magari tramite l'uso di droni)
+- Il motivo potrebbe essere che una risoluzione spaziale di 250 metri non è sufficientemente precisa per quel terreno (dai dati raggruppati si nota infatti che tendono a ripetersi più volte gli stessi identici valori del NDVI al variare della coppia longitudine-latitudine, suggerendo che è necessaria una risoluzione spaziale migliore, ad esempio di 50 metri o 10 metri, magari tramite l'uso di droni)
 
 ### Random forest
 - Ho filtrato i dati in modo da tenere solo le colonne che mi interessavano (NDVI medio, longitudine, latitudine e resa)
 - Ho suddiviso in X e y rispettivamente le colonne delle features (NDVI medio, longitudine e latitudine) e la colonna del target (resa)
+- Usando la funzione train_test_split di Scikit-learn, ho suddiviso il dataset in train (81%), validation (9%) e test (10%)
 - Ho lanciato una prima random forest con iperparametri arbitrari solo per farmi una prima idea delle performance
 - Ho lanciato una grid search per provare tante combinazioni di iperparametri a mia scelta
 - Ho usato 3 metriche di performance: MSE (Mean Squared Error), MAPE (Mean Absolute Percentage Error) e MAE (Mean Absolute Error)
